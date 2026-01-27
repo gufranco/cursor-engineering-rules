@@ -87,7 +87,12 @@ gh pr create ...  # May fail if gh not installed
 - Code should read naturally in English
 
 ## Documentation (README.md) - MANDATORY
-After changes that affect usage, **you MUST update README.md**:
+**Every task completion MUST include a README check.**
+
+### Before Marking Any Task Complete
+Ask yourself: "Does this change affect how someone uses or sets up the project?"
+
+If YES, update README.md:
 - New environment variables → Add to Environment Variables table
 - New API endpoints → Add to API Design section
 - Authentication changes → Update Authentication section
@@ -95,9 +100,23 @@ After changes that affect usage, **you MUST update README.md**:
 - Changed setup steps → Update Getting Started
 - New dependencies with setup → Document installation
 - Architecture changes → Update Project Structure
+- New features → Document usage
+
+### README Update Checklist
+```
+□ Does this add/change environment variables?
+□ Does this add/change API endpoints?
+□ Does this add/change CLI commands or scripts?
+□ Does this change setup or installation steps?
+□ Does this add new dependencies that need configuration?
+□ Does this change authentication or authorization?
+□ Does this add a new feature users need to know about?
+```
+
+**If any checkbox is YES → Update README before completing the task.**
 
 **Keep it concise.** Don't document obvious things.
-**This is not optional.** Task is incomplete without README updates.
+**This is not optional.** Task is incomplete without README verification.
 
 ## Think Before You Code
 For non-trivial tasks:
