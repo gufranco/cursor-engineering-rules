@@ -6,6 +6,12 @@ alwaysApply: false
 
 # Database
 
+## Official Documentation
+Always consult before implementing:
+- Prisma Docs: https://www.prisma.io/docs
+- Query Optimization: https://www.prisma.io/docs/guides/performance-and-optimization
+- Connection Management: https://www.prisma.io/docs/guides/performance-and-optimization/connection-management
+
 ## ORM Rules
 - **NEVER** use raw SQL (`$queryRaw`, `$executeRaw`)
 - Use transactions for data modifications

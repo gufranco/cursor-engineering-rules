@@ -6,6 +6,14 @@ alwaysApply: false
 
 # React & Next.js
 
+## Official Documentation
+Always consult before implementing:
+- React Best Practices: https://react.dev
+- Next.js Docs: https://nextjs.org/docs
+- React Hook Form: https://react-hook-form.com
+- TanStack Query: https://tanstack.com/query
+- Zod: https://zod.dev
+
 ## Server vs Client
 | Need | Component |
 |------|-----------|
