@@ -1,0 +1,119 @@
+---
+description: Core principles - always loaded
+alwaysApply: true
+---
+
+# Core Principles
+
+## Language
+- Always respond in American English
+
+## Confidence (95%+ Required)
+Before ANY action, verify:
+- Information is correct (read actual code)
+- Approach will work
+- Won't break existing functionality
+
+**If uncertain: STOP → ASK → INVESTIGATE**
+
+## Anti-Hallucination
+| ❌ NEVER | ✅ ALWAYS |
+|----------|-----------|
+| Invent file paths | Verify with glob/read |
+| Assume signatures | Read the definition |
+| Guess APIs | Check route/controller |
+| Make up versions | Look up or omit |
+
+## Type Safety (Zero Tolerance)
+- **NEVER** use `any`, `@ts-ignore`, `@ts-expect-error`
+- Use `unknown` + type guards instead
+
+## Code Style
+- DRY, SOLID, KISS
+- Small functions (< 30 lines)
+- Meaningful names
+- No magic numbers
+- Single export per file
+
+## Comments Policy
+**Code should be self-explanatory in English.** Only add comments when:
+- Complex algorithm that can't be simplified
+- Non-obvious business rule ("// Tax exempt per regulation X")
+- Workaround for external issue ("// Bug in library v1.2.3")
+- JSDoc for public APIs
+- AAA pattern in tests (`// Arrange`, `// Act`, `// Assert` only)
+
+| ❌ NEVER | ✅ ACCEPTABLE |
+|----------|---------------|
+| `// increment counter` | `// Retry 3x per RFC-7231` |
+| `// get user` | `// Workaround for Prisma#1234` |
+| `// loop through items` | JSDoc with @param, @returns |
+| `// Arrange - set up data` | `// Arrange` |
+
+## Self-Documenting Code
+- Variable and function names MUST convey intent
+- If you need a comment to explain code, rewrite the code instead
+- Code should read naturally in English
+
+## Documentation (README.md) - MANDATORY
+After changes that affect usage, **you MUST update README.md**:
+- New environment variables → Add to Environment Variables table
+- New API endpoints → Add to API Design section
+- Authentication changes → Update Authentication section
+- New commands or scripts → Add to Scripts table
+- Changed setup steps → Update Getting Started
+- New dependencies with setup → Document installation
+- Architecture changes → Update Project Structure
+
+**Keep it concise.** Don't document obvious things.
+**This is not optional.** Task is incomplete without README updates.
+
+## Think Before You Code
+For non-trivial tasks:
+1. **Clarify** - Ask questions, understand requirements
+2. **Propose** - Present approach, wait for approval
+3. **Decompose** - Split into small, verifiable steps
+4. **Implement** - Only then write code
+
+**Don't start coding until the approach is clear.**
+
+## Scope Control
+- Complete ONE task fully before starting another
+- Ask before expanding scope
+- Max 3-5 files per task
+
+## Verification Before Completion
+Before declaring any task done:
+1. **Run the code** - Actually execute, don't assume
+2. **Test the change** - Verify it works as expected
+3. **Check side effects** - Ensure nothing else broke
+4. **Evidence** - Show proof it works (output, test results)
+
+**Claims without evidence = not done.**
+
+## Self-Correction
+When you make a mistake:
+1. Acknowledge clearly
+2. Explain why
+3. Fix immediately
+4. State prevention
+
+## Pattern Detection (Proactive)
+When you notice the user requesting the same thing 2+ times in a conversation:
+1. **Identify** - Recognize the repeated pattern
+2. **Check** - Verify if it's already in `.cursor/rules/`
+3. **Suggest** - Ask: "I noticed you've requested [X] multiple times. Should I add this to `.cursor/rules/` to automate it?"
+4. **Recommend** - Suggest the appropriate rule file:
+   - Code style → `00-core.mdc`
+   - Git workflow → `01-git-workflow.mdc`
+   - Task completion → `02-task-completion.mdc`
+   - Security → `03-security.mdc`
+   - Testing → `11-testing.mdc`
+   - API design → `13-api-design.mdc`
+   - New category → Create new numbered file
+
+**Examples of detectable patterns:**
+- "Run tests before finishing" → Add to `02-task-completion.mdc`
+- "Use specific naming convention" → Add to `00-core.mdc`
+- "Always check lints" → Add to `02-task-completion.mdc`
+- "Follow specific commit format" → Add to `01-git-workflow.mdc`

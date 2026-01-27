@@ -1,0 +1,59 @@
+---
+description: API documentation standards
+globs: "**/api/**/*.ts"
+alwaysApply: false
+---
+
+# API Documentation
+
+## OpenAPI Requirements
+All API endpoints MUST be documented in OpenAPI specification.
+
+## New Endpoint Checklist
+When creating a new endpoint:
+- [ ] Add Zod schema to `src/modules/*/domain/schemas.ts`
+- [ ] Register schema with OpenAPI registry
+- [ ] Document request body schema
+- [ ] Document response schema (success and error)
+- [ ] Document query parameters
+- [ ] Document path parameters
+- [ ] Specify authentication requirements
+- [ ] Add example requests/responses
+
+## Schema Location
+Schemas MUST be centralized in module domain files:
+```
+src/modules/{module}/domain/schemas.ts
+```
+
+**Never** define schemas inline in route files.
+
+## Response Format
+All endpoints must use standardized response format:
+
+```typescript
+// Success
+{
+  "data": { ... },
+  "meta": { "requestId": "...", "timestamp": "..." }
+}
+
+// Error
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human readable message",
+    "requestId": "...",
+    "timestamp": "..."
+  }
+}
+```
+
+## Authentication Documentation
+- Specify if endpoint requires authentication
+- Document required roles/permissions
+- Use Bearer token scheme in OpenAPI spec
+
+## Versioning
+- API version in URL path: `/api/v1/resource`
+- Document breaking changes in CHANGELOG

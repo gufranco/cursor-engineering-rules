@@ -1,0 +1,26 @@
+---
+description: Dependency management
+globs: "**/package.json"
+alwaysApply: false
+---
+
+# Dependencies
+
+## Before Adding
+1. **Ask permission** - Never add without approval
+2. **Check existing** - Maybe already solved
+3. **Evaluate** - Recent commits? Vulnerabilities?
+4. **Size** - Avoid heavy packages for simple tasks
+
+## Rules
+- Pin exact versions: `"1.2.3"` not `"^1.2.3"`
+- One package at a time
+- Run `npm audit` after adding
+- Use `--save-dev` for dev dependencies
+
+## Checklist
+- [ ] User approved
+- [ ] No existing solution
+- [ ] Actively maintained
+- [ ] Acceptable bundle size
+- [ ] No critical vulnerabilities

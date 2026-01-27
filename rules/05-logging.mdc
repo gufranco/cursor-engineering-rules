@@ -1,0 +1,53 @@
+---
+description: Logging standards
+globs: "**/*.ts,**/*.tsx"
+alwaysApply: false
+---
+
+# Logging
+
+## Log Levels
+| Level | When | Example |
+|-------|------|---------|
+| ERROR | Operation failed | Payment failed |
+| WARN | Handled but unexpected | Rate limit near |
+| INFO | Business events | User registered |
+| DEBUG | Diagnostic (dev only) | Function input/output |
+
+**Production**: INFO+ | **Development**: DEBUG+
+
+## Structured Format (JSON)
+```json
+{
+  "timestamp": "2024-01-15T10:30:00Z",
+  "level": "INFO",
+  "message": "Order placed",
+  "requestId": "abc-123",
+  "userId": "user-456",
+  "orderId": "order-789"
+}
+```
+
+## Correlation IDs
+- Generate at request entry point
+- Pass through all service calls
+- Include in every log
+
+## What to Log
+- External API calls (sanitized)
+- Authentication events
+- Business-critical operations
+- Errors with full context
+
+## What NOT to Log
+- Passwords, tokens, API keys
+- Credit card numbers
+- PII without necessity
+- Health check spam
+
+## Rules
+- Use structured logging (JSON)
+- Always include requestId
+- Sanitize sensitive data
+- Don't log in loops
+- Use appropriate level (not everything is ERROR)

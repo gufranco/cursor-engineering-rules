@@ -1,0 +1,56 @@
+---
+description: Guide for selecting the right agent
+alwaysApply: true
+---
+
+# Agent Selection Guide
+
+## Engineering Agents
+| Problem | Agent |
+|---------|-------|
+| API design, endpoints, REST | `api-designer` |
+| System architecture, patterns | `backend-architect` |
+| Queries, indexes, schema | `database-specialist` |
+| Bug hunting, root cause | `debugging-specialist` |
+| CI/CD, Docker, infra | `devops-engineer` |
+| React, Next.js, UI | `frontend-specialist` |
+| Schema changes, data moves | `migration-specialist` |
+| Slow code, memory, latency | `performance-engineer` |
+| Auth, vulnerabilities, OWASP | `security-engineer` |
+| Screen readers, WCAG, a11y | `accessibility-specialist` |
+| Git history, code evolution | `code-archeologist` |
+
+## Testing Agents
+| Problem | Agent |
+|---------|-------|
+| Test strategy, coverage | `test-architect` |
+| API/endpoint testing | `api-tester` |
+| Browser, Playwright, Cypress | `e2e-tester` |
+
+## Code Quality Agents
+| Problem | Agent |
+|---------|-------|
+| PR review, feedback | `code-reviewer` |
+| Code smells, cleanup | `refactoring-expert` |
+
+## Other Agents
+| Problem | Agent |
+|---------|-------|
+| README, docs, ADRs | `technical-writer` |
+| Outages, incidents | `incident-responder` |
+
+## Quick Decision Tree
+```
+Is it broken?
+├─ Yes → debugging-specialist
+└─ No
+   ├─ Is it slow? → performance-engineer
+   ├─ Is it insecure? → security-engineer
+   ├─ Is it inaccessible? → accessibility-specialist
+   ├─ Need to understand history? → code-archeologist
+   └─ Building something new?
+      ├─ API? → api-designer
+      ├─ UI? → frontend-specialist
+      ├─ Database? → database-specialist
+      └─ Tests? → test-architect
+```

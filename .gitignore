@@ -1,0 +1,15 @@
+# Plans are project-specific
+plans/*.md
+!plans/README.md
+
+# Scratchpad state (keep template)
+# scratchpad.md is tracked as a template
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo

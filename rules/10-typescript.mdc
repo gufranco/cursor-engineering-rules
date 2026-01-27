@@ -1,0 +1,36 @@
+---
+description: TypeScript patterns
+globs: "**/*.ts,**/*.tsx"
+alwaysApply: false
+---
+
+# TypeScript
+
+## Type Safety (Zero Tolerance)
+| ❌ FORBIDDEN | ✅ USE INSTEAD |
+|--------------|----------------|
+| `any` | `unknown` + type guards |
+| `as any` | Correct type assertion |
+| `@ts-ignore` | Fix the error |
+| `!` assertion | Proper null checks |
+
+## Naming
+| Element | Convention |
+|---------|------------|
+| Variables/Functions | camelCase |
+| Constants | SCREAMING_SNAKE |
+| Classes/Types/Interfaces | PascalCase |
+| Files | kebab-case |
+| Booleans | `is`, `has`, `can` prefix |
+
+## Imports
+```typescript
+// ❌ Barrel imports for large libs
+import { Check } from 'lucide-react'
+
+// ✅ Direct imports
+import Check from 'lucide-react/dist/esm/icons/check'
+```
+
+## Error Handling
+Use `Result<T, E>` for expected errors, exceptions for unexpected.

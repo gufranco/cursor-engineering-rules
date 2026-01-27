@@ -1,0 +1,51 @@
+---
+description: Git commits, branches, PRs, and CI/CD monitoring
+alwaysApply: true
+---
+
+# Git Workflow
+
+## Commit Format
+```
+<type>(<scope>): <subject>
+```
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
+Rules: imperative mood, no caps, no period, max 50 chars
+
+## Branch Naming
+```
+<type>/<ticket-id>-<description>
+```
+Types: `feature/`, `bugfix/`, `hotfix/`, `release/`, `chore/`
+
+## PR Title
+```
+<TICKET-ID>: <description>
+```
+
+## CI/CD Monitoring (MANDATORY)
+After ANY push:
+1. Run `gh pr checks --watch`
+2. Wait for ALL checks
+3. If failed: `gh run view <id> --log-failed`
+4. Fix → Push → Repeat until green
+
+**Never** mark task complete with failing/running pipeline.
+
+## Post-Task Workflow
+After completing significant features:
+1. Stage and commit with conventional message
+2. Push to remote: `git push`
+3. Verify remote is updated
+
+**Keep remote in sync.** Don't accumulate local-only commits.
+
+## Conflict Resolution
+```bash
+git fetch origin && git rebase origin/staging
+# Resolve conflicts manually
+git add <file> && git rebase --continue
+# Test locally, then:
+git push --force-with-lease
+```

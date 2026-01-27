@@ -1,0 +1,64 @@
+---
+description: Database and Prisma patterns
+globs: "**/*.prisma,**/prisma/**,**/repositories/**"
+alwaysApply: false
+---
+
+# Database
+
+## ORM Rules
+- **NEVER** use raw SQL (`$queryRaw`, `$executeRaw`)
+- Use transactions for data modifications
+- Use `SELECT ... FOR UPDATE` for reads before writes
+
+## Schema
+- Always: `created_at`, `updated_at`
+- Soft delete: `deleted_at` (nullable)
+- Dates in UTC
+
+## Query Optimization
+- No `SELECT *` → specify columns
+- No N+1 → use `include`/eager loading
+- Pagination for lists
+- Indexes for WHERE, JOIN, ORDER BY
+
+## Safe Migrations
+| Operation | Approach |
+|-----------|----------|
+| Add column | Nullable first → backfill → constraint |
+| Remove column | Stop reading → deploy → remove |
+| Rename column | Add new → copy → migrate code → remove old |
+| Add index | `CONCURRENTLY` |
+
+## Naming
+Tables: `plural_snake_case`
+Columns: `singular_snake_case`
+FK: `<table>_id`
+
+## Index Requirements
+Always create indexes for:
+- Foreign keys (Prisma does this automatically)
+- Columns used in WHERE clauses
+- Columns used in ORDER BY
+- Columns used in JOIN conditions
+- Unique constraints
+
+```prisma
+model User {
+  email String @unique
+  
+  @@index([companyId])
+  @@index([email])
+  @@index([createdAt])
+}
+```
+
+## Multi-tenant Queries
+**Every** query MUST filter by `companyId`:
+```typescript
+// ✅ Correct
+prisma.client.findMany({ where: { companyId } })
+
+// ❌ Wrong - data leak risk
+prisma.client.findMany()
+```
