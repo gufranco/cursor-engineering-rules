@@ -34,3 +34,54 @@ import Check from 'lucide-react/dist/esm/icons/check'
 
 ## Error Handling
 Use `Result<T, E>` for expected errors, exceptions for unexpected.
+
+## Path Aliases
+
+### Configuration
+Keep path aliases in sync across all config files:
+
+**tsconfig.json**
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@services/*": ["src/services/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
+    }
+  }
+}
+```
+
+**For bundlers (Vite, Webpack, etc.)**
+```typescript
+// vite.config.ts
+resolve: {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+    '@components': path.resolve(__dirname, './src/components'),
+    // ... mirror tsconfig paths
+  }
+}
+```
+
+### Usage
+```typescript
+// ✅ Clean imports with aliases
+import { Button } from '@components/ui/button';
+import { useAuth } from '@hooks/use-auth';
+import { formatDate } from '@utils/date';
+
+// ❌ Avoid deep relative imports
+import { Button } from '../../../components/ui/button';
+```
+
+### Rules
+- Keep aliases consistent across all configs
+- Use `@/` prefix for project root
+- Domain-specific aliases: `@components`, `@services`, etc.
+- Update all configs when adding new aliases

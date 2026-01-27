@@ -148,3 +148,34 @@ When you notice the user requesting the same thing 2+ times in a conversation:
 - "Use specific naming convention" → Add to `00-core.mdc`
 - "Always check lints" → Add to `02-task-completion.mdc`
 - "Follow specific commit format" → Add to `01-git-workflow.mdc`
+
+## Writing Rules (Agnostic by Default)
+When creating or modifying rules in `.cursor/rules/`:
+
+1. **Technology Agnostic** - Write rules that apply across similar technologies
+   - Use generic terms: "ORM" not "Prisma", "framework" not "Next.js"
+   - Provide examples for multiple languages/frameworks when possible
+   - Avoid hardcoding specific library names unless the rule is framework-specific
+
+2. **Pattern Over Implementation** - Focus on the "what" and "why", not the "how"
+   ```markdown
+   ✅ "Use connection pooling for database connections"
+   ❌ "Set Prisma connection pool to 10"
+   ```
+
+3. **Reusability Checklist**
+   - [ ] Could this rule apply to Python, Go, Ruby, etc.?
+   - [ ] Are examples generic enough to adapt?
+   - [ ] Is the principle clear without specific library knowledge?
+
+4. **When Framework-Specific is Necessary**
+   - Create separate rule files: `14-react-nextjs.mdc`, `23-ruby.mdc`
+   - Use glob patterns to auto-apply: `globs: "**/*.rb"`
+   - Still document the underlying principle, not just the syntax
+
+5. **Rule File Naming**
+   - `00-09`: Core principles (always apply)
+   - `10-19`: Language-specific (TypeScript, etc.)
+   - `20-29`: Architecture patterns (monorepo, websocket, etc.)
+   - `30-39`: Language-specific (Ruby, Go, Python, etc.)
+   - `90-99`: Meta rules (agent router, etc.)

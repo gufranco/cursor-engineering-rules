@@ -68,3 +68,87 @@ prisma.client.findMany({ where: { companyId } })
 // ❌ Wrong - data leak risk
 prisma.client.findMany()
 ```
+
+## Prisma Extensions
+
+### Query Logging Extension
+```typescript
+import { Prisma } from '@prisma/client';
+
+const queryLoggingExtension = Prisma.defineExtension({
+  query: {
+    $allOperations({ operation, model, args, query }) {
+      const start = Date.now();
+      
+      return query(args).finally(() => {
+        const duration = Date.now() - start;
+        logger.debug({
+          model,
+          operation,
+          duration,
+          // Include requestId from AsyncLocalStorage
+          requestId: getRequestId(),
+        });
+      });
+    },
+  },
+});
+```
+
+### Read Replicas Extension
+```typescript
+import { readReplicas } from '@prisma/extension-read-replicas';
+
+const prisma = new PrismaClient().$extends(
+  readReplicas({
+    url: process.env.DATABASE_REPLICA_URL,
+  })
+);
+
+// Reads go to replica, writes to primary
+const users = await prisma.user.findMany(); // → replica
+const user = await prisma.user.create({ data }); // → primary
+```
+
+### Soft Delete Extension
+```typescript
+const softDeleteExtension = Prisma.defineExtension({
+  query: {
+    $allModels: {
+      async findMany({ model, args, query }) {
+        args.where = { ...args.where, deletedAt: null };
+        return query(args);
+      },
+      async delete({ model, args, query }) {
+        return prisma[model].update({
+          ...args,
+          data: { deletedAt: new Date() },
+        });
+      },
+    },
+  },
+});
+```
+
+### Usage
+```typescript
+// Compose extensions
+const prisma = new PrismaClient()
+  .$extends(queryLoggingExtension)
+  .$extends(readReplicas({ url: replicaUrl }))
+  .$extends(softDeleteExtension);
+```
+
+## Connection Pooling
+
+### Pool Sizing Formula
+```
+Pool Size = (Number of Cores × 2) + Effective Spindle Count
+```
+
+For serverless: Use connection pooling service (PgBouncer, Prisma Data Proxy)
+
+### Configuration
+```
+DATABASE_URL="postgresql://...?connection_limit=10&pool_timeout=20"
+```

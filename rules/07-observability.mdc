@@ -114,18 +114,79 @@ logger.info({
 | Cache read | < 5ms | 20ms |
 | External API | < 500ms | 3s |
 
+## Route Metadata Pattern
+
+### Tagging Routes for Observability
+```typescript
+// Define metadata for each route
+interface RouteMetadata {
+  controller: string;
+  service: string;
+  operation: string;
+}
+
+// Middleware to attach metadata
+function withMetadata(metadata: RouteMetadata) {
+  return (req, res, next) => {
+    req.routeMetadata = metadata;
+    next();
+  };
+}
+
+// Usage in routes
+router.post('/users', 
+  withMetadata({
+    controller: 'UserController',
+    service: 'UserService',
+    operation: 'createUser'
+  }),
+  userController.create
+);
+```
+
+### Benefits
+- Automatic tagging in APM tools (Datadog, New Relic)
+- Better log grouping
+- Easier debugging and filtering
+- Performance analysis per controller/service
+
+### Logging Middleware
+```typescript
+app.use((req, res, next) => {
+  const start = Date.now();
+  
+  res.on('finish', () => {
+    logger.info({
+      requestId: req.requestId,
+      method: req.method,
+      path: req.path,
+      status: res.statusCode,
+      duration: Date.now() - start,
+      // Route metadata
+      controller: req.routeMetadata?.controller,
+      service: req.routeMetadata?.service,
+      operation: req.routeMetadata?.operation,
+    });
+  });
+  
+  next();
+});
+```
+
 ## Debugging Checklist
 
 When investigating issues:
 1. Get `requestId` from error response or logs
 2. Search logs by `requestId`
-3. Check external service logs (same `requestId`)
-4. Review timing breakdown
-5. Check cache hit/miss
-6. Review database query plans
+3. Filter by controller/service/operation
+4. Check external service logs (same `requestId`)
+5. Review timing breakdown
+6. Check cache hit/miss
+7. Review database query plans
 
 ## Rules
 - Every request MUST have a `requestId`
+- Tag routes with metadata for better observability
 - Log entry and exit of critical operations
 - Include duration for all async operations
 - Never log sensitive data (passwords, tokens, PII)

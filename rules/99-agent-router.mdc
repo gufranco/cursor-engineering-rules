@@ -15,11 +15,21 @@ alwaysApply: true
 | CI/CD, Docker, infra | `devops-engineer` |
 | React, Next.js, UI | `frontend-specialist` |
 | Translations, localization | `frontend-specialist` + rule `06-i18n` |
+| React Native, Flutter, mobile | `mobile-specialist` |
 | Schema changes, data moves | `migration-specialist` |
 | Slow code, memory, latency | `performance-engineer` |
 | Auth, vulnerabilities, OWASP | `security-engineer` |
 | Screen readers, WCAG, a11y | `accessibility-specialist` |
 | Git history, code evolution | `code-archeologist` |
+| Monorepo, workspaces, shared packages | `monorepo-architect` |
+| WebSocket, SSE, pub/sub | `realtime-engineer` |
+
+## Language-Specific Agents
+| Problem | Agent |
+|---------|-------|
+| Ruby, Rails, RSpec | `ruby-specialist` |
+| Go, concurrency, goroutines | `go-specialist` |
+| Python, FastAPI, pytest | `python-specialist` |
 
 ## Testing Agents
 | Problem | Agent |
@@ -52,7 +62,13 @@ Is it broken?
    └─ Building something new?
       ├─ API? → api-designer
       ├─ UI? → frontend-specialist
+      ├─ Mobile? → mobile-specialist
+      ├─ Real-time? → realtime-engineer
+      ├─ Monorepo? → monorepo-architect
       ├─ Translations? → frontend-specialist + 06-i18n
       ├─ Database? → database-specialist
+      ├─ Ruby? → ruby-specialist
+      ├─ Go? → go-specialist
+      ├─ Python? → python-specialist
       └─ Tests? → test-architect
 ```
