@@ -14,6 +14,7 @@ alwaysApply: true
 | Bug hunting, root cause | `debugging-specialist` |
 | CI/CD, Docker, infra | `devops-engineer` |
 | React, Next.js, UI | `frontend-specialist` |
+| Translations, localization | `frontend-specialist` + rule `06-i18n` |
 | Schema changes, data moves | `migration-specialist` |
 | Slow code, memory, latency | `performance-engineer` |
 | Auth, vulnerabilities, OWASP | `security-engineer` |
@@ -51,6 +52,7 @@ Is it broken?
    └─ Building something new?
       ├─ API? → api-designer
       ├─ UI? → frontend-specialist
+      ├─ Translations? → frontend-specialist + 06-i18n
       ├─ Database? → database-specialist
       └─ Tests? → test-architect
 ```
