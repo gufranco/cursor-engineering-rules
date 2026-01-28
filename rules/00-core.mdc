@@ -59,12 +59,59 @@ gh pr create ...  # May fail if gh not installed
 - **NEVER** use `any`, `@ts-ignore`, `@ts-expect-error`
 - Use `unknown` + type guards instead
 
+| ❌ NEVER | ✅ CORRECT |
+|----------|------------|
+| `data: any` | `data: unknown` |
+| `// @ts-ignore` | Fix the type error |
+| `// @ts-expect-error` | Add proper types |
+| `(obj as any).prop` | Type guard + assertion |
+
+```typescript
+// ❌ NEVER
+function process(data: any) {
+  return data.value;
+}
+
+// ✅ CORRECT
+function process(data: unknown): string {
+  if (typeof data === 'object' && data !== null && 'value' in data) {
+    return String(data.value);
+  }
+  throw new Error('Invalid data');
+}
+```
+
 ## Code Style
 - DRY, SOLID, KISS
 - Small functions (< 30 lines)
 - Meaningful names
 - No magic numbers
 - Single export per file
+
+| ❌ NEVER | ✅ CORRECT |
+|----------|------------|
+| `const x = 86400` | `const SECONDS_PER_DAY = 86400` |
+| `if (status === 1)` | `if (status === Status.ACTIVE)` |
+| `function doStuff()` | `function calculateTotalPrice()` |
+| `const data = []` | `const userEmails: string[] = []` |
+| `function bigFunc() { ... 100 lines }` | Split into smaller functions |
+
+```typescript
+// ❌ NEVER - magic numbers, unclear names
+function calc(a, b) {
+  return a * 0.1 + b * 86400;
+}
+
+// ✅ CORRECT - meaningful names, constants
+const TAX_RATE = 0.1;
+const SECONDS_PER_DAY = 86400;
+
+function calculateTotalWithTax(subtotal: number, days: number): number {
+  const tax = subtotal * TAX_RATE;
+  const durationInSeconds = days * SECONDS_PER_DAY;
+  return subtotal + tax;
+}
+```
 
 ## Comments Policy
 **Code should be self-explanatory in English.** Only add comments when:
@@ -85,6 +132,28 @@ gh pr create ...  # May fail if gh not installed
 - Variable and function names MUST convey intent
 - If you need a comment to explain code, rewrite the code instead
 - Code should read naturally in English
+
+| ❌ NEVER | ✅ CORRECT |
+|----------|------------|
+| `const d = new Date()` | `const createdAt = new Date()` |
+| `const arr = users.filter(u => u.a)` | `const activeUsers = users.filter(user => user.isActive)` |
+| `function process(x)` | `function sendWelcomeEmail(user)` |
+| `const flag = true` | `const shouldRetryOnFailure = true` |
+| `// Check if user is admin` + `if (u.r === 1)` | `if (user.role === Role.ADMIN)` |
+
+```typescript
+// ❌ NEVER - needs comment to understand
+// Get users who signed up in the last 30 days and are active
+const res = data.filter(x => x.d > Date.now() - 2592000000 && x.s === 1);
+
+// ✅ CORRECT - self-explanatory, no comment needed
+const THIRTY_DAYS_IN_MS = 30 * 24 * 60 * 60 * 1000;
+const thirtyDaysAgo = Date.now() - THIRTY_DAYS_IN_MS;
+
+const recentActiveUsers = users.filter(user => 
+  user.signupDate > thirtyDaysAgo && user.status === UserStatus.ACTIVE
+);
+```
 
 ## Documentation (README.md) - MANDATORY
 **Every task completion MUST include a README check.**

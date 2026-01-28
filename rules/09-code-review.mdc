@@ -22,6 +22,33 @@ alwaysApply: false
 - Link to relevant tickets/issues
 - Respond to all comments, even if just "Done"
 
+```markdown
+<!-- ❌ NEVER - vague PR description -->
+## Description
+Fixed some bugs and added features.
+
+<!-- ✅ CORRECT - clear PR description -->
+## Summary
+Add email verification for new user registrations.
+
+## Changes
+- Added `sendVerificationEmail()` to auth service
+- Created email verification endpoint `POST /verify-email`
+- Added 24-hour expiration for verification tokens
+
+## Testing
+- [x] Unit tests for token generation
+- [x] Integration tests for email sending
+- [x] Manual test: full registration flow
+
+## Screenshots
+| Before | After |
+|--------|-------|
+| (none) | [verification email screenshot] |
+
+Closes ENG-1234
+```
+
 ### Splitting Large PRs
 | Original PR | Split Into |
 |-------------|------------|
@@ -53,6 +80,34 @@ alwaysApply: false
 - Offer solutions, not just problems
 - Approve with comments if only nits remain
 - Use "we" instead of "you" ("we should" vs "you should")
+
+| ❌ NEVER | ✅ CORRECT |
+|----------|------------|
+| "This is wrong" | "issue: This might cause X. Consider Y instead" |
+| "Why did you do it this way?" | "question: What was the reasoning behind X?" |
+| "You should use X" | "suggestion: We could use X here for better Y" |
+| "Fix this" | "nit: We usually prefer X style in this codebase" |
+
+```markdown
+<!-- ❌ NEVER - unhelpful criticism -->
+This code is confusing and hard to read.
+
+<!-- ✅ CORRECT - constructive with solution -->
+suggestion: This function is doing multiple things. We could split it into
+`validateInput()` and `processOrder()` for better readability and testability.
+
+Something like:
+\`\`\`typescript
+const validatedData = validateInput(input);
+const result = await processOrder(validatedData);
+\`\`\`
+
+<!-- ❌ NEVER - blocking on style -->
+I would have done this differently. Blocking until changed.
+
+<!-- ✅ CORRECT - approve with nits -->
+Looks good! Left a few nits but nothing blocking. Approving.
+```
 
 ## Review Checklist
 

@@ -22,6 +22,14 @@ alwaysApply: true
 - No caps at start, no period at end
 - Max 50 characters
 
+| ❌ NEVER | ✅ CORRECT |
+|----------|------------|
+| `Added user authentication` | `add user authentication` |
+| `Adds login feature` | `add login feature` |
+| `Fix bug.` | `fix login redirect` |
+| `Update` | `update password validation rules` |
+| `WIP` | `add email verification (incomplete)` |
+
 ### Body (optional)
 - Wrap at 72 characters
 - Explain WHAT and WHY, not HOW
@@ -30,6 +38,42 @@ alwaysApply: true
 ### Footer (optional)
 - `BREAKING CHANGE:` for breaking changes
 - `Fixes #123`, `Closes #456`, `Refs #789`
+
+### Complete Examples
+
+```
+# ❌ NEVER - vague, wrong tense, no context
+Fixed stuff
+
+# ✅ CORRECT - simple fix
+fix(auth): handle expired refresh tokens
+```
+
+```
+# ✅ CORRECT - with body explaining why
+feat(api): add rate limiting to auth endpoints
+
+Auth endpoints were vulnerable to brute force attacks.
+Added sliding window rate limiting:
+- 5 requests/minute for login
+- 3 requests/minute for password reset
+
+Refs ENG-1234
+```
+
+```
+# ✅ CORRECT - breaking change
+feat(api): change user response format
+
+BREAKING CHANGE: User endpoint now returns nested address object.
+Before: { street, city, country }
+After: { address: { street, city, country } }
+
+Migration guide: Update client code to access user.address.street
+instead of user.street.
+
+Closes #456
+```
 
 ## Branch Naming
 

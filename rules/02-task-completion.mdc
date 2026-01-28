@@ -33,6 +33,30 @@ npm run build       # Must compile successfully
 3. **Tests**: Coverage confirmation
 4. **Risks**: Concerns or follow-ups
 
+```markdown
+<!-- ❌ NEVER - vague summary -->
+Done. Updated some files.
+
+<!-- ✅ CORRECT - detailed summary -->
+## Delivery Summary
+
+**Files Modified:**
+- `src/services/user.service.ts` - Added email validation
+- `src/controllers/user.controller.ts` - Updated createUser endpoint
+- `src/services/user.service.test.ts` - Added 3 new tests
+
+**Changes:**
+- Added email format validation before user creation
+- Returns 400 Bad Request for invalid emails (previously 500)
+
+**Tests:**
+- 3 new tests added (valid email, invalid format, duplicate email)
+- All 47 tests passing, 85% coverage
+
+**Risks:**
+- None identified. Change is backward compatible.
+```
+
 ## Rollback Strategy
 If change causes problems:
 1. `git revert <commit>` → Push
@@ -52,6 +76,34 @@ If change causes problems:
 - Read full error messages
 - Stop after 3 failed attempts, reassess
 - **Evidence over claims** - Show proof it's fixed
+
+```markdown
+<!-- ❌ NEVER - random changes without understanding -->
+"I'll try changing this... nope. Maybe this... still broken."
+
+<!-- ✅ CORRECT - systematic approach -->
+## Bug: Users can't login after password reset
+
+**1. REPRODUCE**
+- Reset password for test@example.com
+- Try to login with new password → 401 Unauthorized
+- Reproducible 100% of the time
+
+**2. ISOLATE**
+- Direct DB query shows password hash is updated ✓
+- bcrypt.compare() returns false even with correct password
+- Issue: hash has extra whitespace from form input
+
+**3. ROOT CAUSE**
+- `resetPassword()` doesn't trim the new password
+- Hash includes trailing space, but login trims input
+- Location: src/services/auth.service.ts:45
+
+**4. FIX+VERIFY**
+- Added `.trim()` to password in resetPassword()
+- Test: Reset + login now works
+- Added test case for whitespace passwords
+```
 
 ## Self-Review
 Before submitting work, verify both:
