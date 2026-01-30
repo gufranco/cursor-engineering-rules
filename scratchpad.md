@@ -12,4 +12,4 @@ _Add notes as you work_
 
 ---
 
-Write `DONE` or `COMPLETE` here to stop hook loops.
+Write `DONE`, `COMPLETE`, or `TESTS PASSING` here to stop hook loops (e.g. test-loop, ci-loop).
