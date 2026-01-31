@@ -17,6 +17,5 @@ When using Plan Mode (`Shift+Tab`), click "Save to workspace" to store plans her
 Plans are auto-generated with timestamps. Rename for clarity:
 
 ```
-2024-01-15-auth-refactor.md
-2024-01-16-api-pagination.md
+YYYY-MM-DD-short-description.md
 ```

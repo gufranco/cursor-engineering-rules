@@ -43,7 +43,7 @@ Edit `.cursor/hooks.json` to configure which hooks run:
 
 ## Scratchpad
 
-Hooks use `.cursor/scratchpad.md` for state. Write "DONE" or "COMPLETE" to stop loops.
+Hooks use `.cursor/scratchpad.md` for state. Write `DONE`, `COMPLETE`, or `TESTS PASSING` to stop loops.
 
 ## Requirements
 

@@ -11,6 +11,10 @@ Reusable workflows triggered with `/` in agent input.
 | `/review` | Analyze changes for issues |
 | `/test-loop` | Run tests until all pass |
 | `/lint-fix` | Fix all lint errors |
+| `/migrate` | Safe database migration workflow |
+| `/refactor` | Systematic refactoring with tests |
+| `/performance` | Performance audit checklist |
+| `/security-audit` | Security review workflow |
 
 ## Usage
 

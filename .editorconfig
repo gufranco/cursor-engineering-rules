@@ -17,5 +17,8 @@ trim_trailing_whitespace = false
 [*.mdc]
 trim_trailing_whitespace = false
 
+[*.{json,mjs,js}]
+indent_size = 2
+
 [Makefile]
 indent_style = tab

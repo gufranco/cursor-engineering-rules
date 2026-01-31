@@ -60,6 +60,8 @@ Before ANY action, verify:
 
 **If uncertain: STOP → ASK → INVESTIGATE**
 
+When no definitive solution exists, say so. When information is lacking, ask for details (e.g. @file) and suggest next steps (e.g. consult docs). Adapt to user feedback (track in status.md or code comments); address recurring issues with simpler or alternative solutions; clarify ambiguous feedback via @ references.
+
 ## External Tools
 Before using any external tool or CLI command:
 
@@ -188,7 +190,7 @@ function calculateTotalWithTax(subtotal: number, days: number): number {
 - Complex algorithm that can't be simplified
 - Non-obvious business rule ("// Tax exempt per regulation X")
 - Workaround for external issue ("// Bug in library v1.2.3")
-- JSDoc for public APIs
+- JSDoc for public APIs (use active voice, present tense; prefer tags compatible with your doc tool, e.g. TypeDoc)
 - AAA pattern in tests (`// Arrange`, `// Act`, `// Assert` only)
 
 | ❌ NEVER | ✅ ACCEPTABLE |
@@ -376,7 +378,6 @@ When creating or modifying rules in `.cursor/rules/`:
 6. **Clarity and Maintenance**
    - Keep rules concise; avoid redundant instructions; use clear, unambiguous language.
    - Review rules periodically. If a rule doesn't seem to apply: check syntax and path (`.cursor/rules`), restart Cursor; note that global rules can override project rules.
-
 ## Automation-Friendly Workflows
 - Prefer **idempotent** operations where possible (scripts, migrations, deploys). Document when something is not idempotent.
 - Prefer **non-interactive** commands for CI and scripts; avoid prompts that block automation.

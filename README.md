@@ -25,7 +25,9 @@ git clone https://github.com/gufranco/cursor-engineering-rules.git .cursor
 rm -rf .cursor/.git
 ```
 
-### Option 2: Use as a Git submodule
+### Option 2: Use as a Git submodule (recommended for multiple projects)
+
+Each project can add this repo as a submodule. Paths in `hooks.json` (e.g. `node .cursor/hooks/ci-loop.mjs`) are relative to that project's root.
 
 ```bash
 git submodule add https://github.com/gufranco/cursor-engineering-rules.git .cursor
@@ -57,7 +59,7 @@ Standards that guide AI behavior based on file patterns.
 | `07-observability` | Tracing, health checks, route metadata | `*.ts, *.tsx` |
 | `08-external-services` | Timeout, retry, fallback patterns | `*.ts` |
 | `10-typescript` | Type safety, path aliases, no `any` | `*.ts, *.tsx` |
-| `11-testing` | AAA pattern, mocks policy, coverage | `*.test.ts` |
+| `11-testing` | AAA pattern, mocks policy, coverage, API tests (Docker, env) | `*.test.ts` |
 | `12-database` | ORM rules, migrations, Prisma extensions | `*.prisma` |
 | `13-api-design` | REST conventions, webhooks, pagination | `api/**` |
 | `14-react-nextjs` | Components, server components, hooks | `*.tsx` |
@@ -211,8 +213,10 @@ Edit `hooks.json` to enable/disable hooks:
 ## Requirements
 
 - [Cursor IDE](https://cursor.com)
-- `gh` CLI (for CI loop features)
-- Node.js (for hooks)
+- Node.js (for hooks: `ci-loop.mjs`, `test-loop.mjs`)
+- `gh` CLI (for CI loop): must be installed and authenticated in each project that uses the CI loop (`gh auth status`)
+
+This repo is intended to be reused across many projects (as a submodule or copied into each project's `.cursor/`). Hooks and paths in `hooks.json` run in the context of whichever project contains `.cursor`.
 
 ## Philosophy
 

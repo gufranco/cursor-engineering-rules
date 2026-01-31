@@ -38,7 +38,7 @@ This file defines **commit format**, **branch naming**, **PR creation**, and **C
 - Use bullet points if needed
 
 ### Footer (optional)
-- `BREAKING CHANGE:` for breaking changes
+- `BREAKING CHANGE:` (or `BREAKING-CHANGE:`) for breaking changes; alternatively put `!` after type/scope (e.g. `feat(api)!: change response format`) so the subject itself signals breaking
 - `Fixes #123`, `Closes #456`, `Refs #789`
 
 ### Complete Examples
