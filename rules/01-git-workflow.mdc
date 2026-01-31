@@ -5,6 +5,8 @@ alwaysApply: true
 
 # Git Workflow
 
+This file defines **commit format**, **branch naming**, **PR creation**, and **CI monitoring**. See `00-core.mdc` for core principles; `02-task-completion.mdc` for delivery and verification.
+
 ## Commit Format
 ```
 <type>(<scope>): <subject>
@@ -122,7 +124,12 @@ After ANY push:
 1. Run `gh pr checks --watch`
 2. Wait for ALL checks
 3. If failed: `gh run view <id> --log-failed`
-4. Fix → Push → Repeat until green
+4. **Before fixing**: Search for an existing fix:
+   - **Source branch**: Same failure on main/staging?
+   - **Open PRs/MRs**: Use `gh pr list` / `gh pr view <n>` (GitHub) or `glab mr list` / `glab mr view <n>` (GitLab) if installed — list open PRs/MRs and **inspect their content** (diffs, CI status). Does another PR/MR already fix this?
+   - **Remote branches**: `git fetch origin` then `git branch -r`; check relevant remote branches for the same failure or an existing fix.
+   - If a fix exists elsewhere: reuse (cherry-pick, rebase onto that branch, or apply the same change). See `00-core.mdc` → Reuse First.
+5. If no existing fix: Fix → Push → Repeat until green
 
 **Never** mark task complete with failing/running pipeline.
 

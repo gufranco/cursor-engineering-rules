@@ -5,6 +5,43 @@ alwaysApply: true
 
 # Core Principles
 
+## Core Checklist (One-Glance Reminder)
+Before acting and before declaring any task done:
+- [ ] **Verify** – Read actual code; don't assume paths, signatures, or APIs.
+- [ ] **No secrets** – Never log, commit, or expose secrets; use env vars; document in `.env.example`.
+- [ ] **Fail fast** – Validate at boundaries; clear errors; don't let invalid state propagate.
+- [ ] **Evidence** – Run test, lint, build; show output. Claims without evidence = not done.
+- [ ] **Safe defaults** – Deny by default; production-safe config; no silent failures.
+- [ ] **Single source of truth** – One place for config, constants, business rules.
+- [ ] **Explicit over implicit** – Explicit types, env, config; no magic.
+- [ ] **Reuse first** – Before implementing, check if the problem or solution already exists (branch, PRs, codebase); avoid doing the same work twice.
+
+See `02-task-completion.mdc` for mandatory commands and delivery summary; `03-security.mdc` for validation and auth. **In Agent/Auto**, follow the response template and evidence rules in `98-agent-quality.mdc` (Goal → Read/Verify → Plan → Do → Verify with output).
+
+### Where to Look (by Topic)
+When the task touches a topic, open the rule file and follow it.
+
+| Topic | Rule file |
+|-------|-----------|
+| API design, REST | `13-api-design.mdc` |
+| API docs (OpenAPI, etc.) | `17-api-documentation.mdc` |
+| Auth, validation, secrets, rate limit | `03-security.mdc`, `26-rate-limiting.mdc` |
+| Dependencies (add/upgrade) | `15-dependencies.mdc` |
+| Errors, retries | `04-error-handling.mdc` |
+| Logging, observability | `05-logging.mdc`, `07-observability.mdc` |
+| i18n, translations | `06-i18n.mdc` |
+| Testing | `11-testing.mdc` |
+| Database, schema, queries | `12-database.mdc` |
+| TypeScript | `10-typescript.mdc` |
+| React, Next.js, UI | `14-react-nextjs.mdc` |
+| Accessibility | `16-accessibility.mdc` |
+| Git, commits, PRs | `01-git-workflow.mdc` |
+| Code review | `09-code-review.mdc` |
+| External services, caching, background jobs | `08-external-services.mdc`, `18-caching.mdc`, `24-background-jobs.mdc` |
+| Feature flags, monorepo, WebSocket, mobile | `25-feature-flags.mdc`, `20-monorepo.mdc`, `21-websocket.mdc`, `22-mobile.mdc` |
+
+**By task type** (open these together when relevant): API change → 13 + 04; New or changed dependency → 15; UI/frontend change → 14 + 16 (a11y); Auth or user input → 03; Bug fix → 04 + 11 (tests); Performance or caching → 18 + 07.
+
 ## Language & Tone
 - Always respond in English
 - Use clear, internationally understood English - avoid regional slang or idioms
@@ -47,6 +84,10 @@ which gh && gh pr create ...
 gh pr create ...  # May fail if gh not installed
 ```
 
+## Explicit Over Implicit
+- Prefer explicit types, explicit dependencies, and explicit configuration. Avoid "magic" that hides behavior.
+- Env vars, feature flags, and config should be named and documented; avoid implicit defaults that differ per environment.
+
 ## Anti-Hallucination
 | ❌ NEVER | ✅ ALWAYS |
 |----------|-----------|
@@ -54,6 +95,12 @@ gh pr create ...  # May fail if gh not installed
 | Assume signatures | Read the definition |
 | Guess APIs | Check route/controller |
 | Make up versions | Look up or omit |
+
+## Secrets & Environment
+- **Never** log, commit, or expose secrets (API keys, passwords, tokens). Use environment variables or a secret manager.
+- Required env vars MUST be documented in `.env.example` (with placeholder values, no real secrets).
+- Validate required env at startup or first use; fail fast with a clear message listing what is missing.
+- See `03-security.mdc` for input validation and auth; keep this principle in mind for every new feature.
 
 ## Type Safety (Zero Tolerance)
 - **NEVER** use `any`, `@ts-ignore`, `@ts-expect-error`
@@ -87,6 +134,16 @@ function process(data: unknown): string {
 - Meaningful names
 - No magic numbers
 - Single export per file
+- For functions with many arguments, pass one options object; when returning several values, return an object (receive object, return object)
+- File order: main export first, then subcomponents, helpers, static content, types (so the file reads top-down by importance)
+- Design for change: isolate business logic from the framework; prefer dependency inversion (depend on abstractions, not concretions)
+- Prefer composition over inheritance; define interfaces for contracts between layers
+- Use braces for all control structures (if, for, while, etc.); consider a consistent line length per project (e.g. 80–120) when the team has a standard
+- When defining project rules, include project structure, key libraries, and common patterns so the AI has context
+- Verify information before presenting it; do not assume or speculate without evidence; make changes file by file when editing multiple files
+- Do not show or discuss the current implementation unless specifically requested; prefer links to real files over generated context
+- Consider security implications when suggesting changes; suggest unit tests for new or modified code; handle edge cases explicitly
+- **Never swallow errors**: no empty catch; log with context, rethrow or handle. Never fail silently. See `04-error-handling.mdc` for format and retry strategy.
 
 | ❌ NEVER | ✅ CORRECT |
 |----------|------------|
@@ -95,6 +152,19 @@ function process(data: unknown): string {
 | `function doStuff()` | `function calculateTotalPrice()` |
 | `const data = []` | `const userEmails: string[] = []` |
 | `function bigFunc() { ... 100 lines }` | Split into smaller functions |
+
+### Fail-Fast & Validation at Boundaries
+- Validate inputs at system boundaries (API, CLI, queue handlers). Invalid data must not propagate.
+- Fail fast with a clear, actionable error message. Do not allow invalid state to persist or spread.
+- See `03-security.mdc` for the full validation pipeline; see `04-error-handling.mdc` for error format.
+
+### Immutability & Explicit Side Effects
+- Prefer immutable data: avoid mutating arguments or shared state when a copy is feasible.
+- Make side effects explicit (I/O, network, DB, logging). Isolate them so logic is easy to test and reason about.
+
+### Single Source of Truth
+- Config, constants, and business rules live in one place. No duplicated magic values or logic across files.
+- Reduces bugs and keeps automation (scripts, CI) aligned with the real behavior.
 
 ```typescript
 // ❌ NEVER - magic numbers, unclear names
@@ -187,6 +257,27 @@ If YES, update README.md:
 **Keep it concise.** Don't document obvious things.
 **This is not optional.** Task is incomplete without README verification.
 
+For shared repositories, keep CONTRIBUTING.md (and ARCHITECTURE.md when useful) with decisions and structure so contributors know how to work with the codebase.
+
+## Reuse First
+Before implementing a fix or new code, **search for an existing solution**; reuse instead of redoing.
+
+### How to check (GitHub / GitLab / branches)
+- **PRs (GitHub)** or **MRs (GitLab)**: If the CLI is installed, use it to list and inspect content. Verify first: `which gh` or `which glab`.
+  - **GitHub**: `gh pr list` (open PRs), `gh pr view <number>` (content/diff), `gh pr checks <number>` (CI status).
+  - **GitLab**: `glab mr list` (open MRs), `glab mr view <number>` (content/diff), `glab mr status` (CI status).
+- **Remote branches**: Check other branches on the remote, not only open PRs/MRs. After `git fetch origin`, run `git branch -r` to list remote branches; inspect relevant ones (e.g. same base, or branches that might already contain a fix).
+- **Source branch**: Check the branch you're merging into (e.g. main, staging): does the same failure or fix already exist there?
+
+| Area | Check | Reuse |
+|------|--------|--------|
+| **Pipeline failure** | Source branch + **all open PRs/MRs** (list + view content) + **remote branches** where relevant. Same failure? Existing fix? | Cherry-pick, rebase onto fix, or apply the same approach. See `01-git-workflow.mdc` → CI/CD. |
+| **Dependencies** | Is the dependency or a native alternative already in the project? | Use existing; add new only if needed. See `15-dependencies.mdc`. |
+| **Code / patterns** | Similar logic or fix in codebase, another branch, or a PR/MR? | Copy or adapt the pattern; don't reimplement from scratch. |
+| **Bugs / config** | Same error or config in other environments, PRs/MRs, or branches? | Apply the same fix or document the shared solution. |
+
+When in doubt, a quick check (list PRs/MRs, view content, list remote branches) can avoid duplicate work.
+
 ## Think Before You Code
 For non-trivial tasks:
 1. **Clarify** - Ask questions, understand requirements
@@ -201,6 +292,10 @@ For non-trivial tasks:
 - Ask before expanding scope
 - Max 3-5 files per task
 
+## Backward Compatibility
+- Do not break existing callers, APIs, or config without a plan. Document breaking changes and migration steps.
+- See `02-task-completion.mdc` for the pre-completion checklist (includes "Backward compatible").
+
 ## Verification Before Completion
 Before declaring any task done:
 1. **Run the code** - Actually execute, don't assume
@@ -209,6 +304,16 @@ Before declaring any task done:
 4. **Evidence** - Show proof it works (output, test results)
 
 **Claims without evidence = not done.**
+
+## Secure & Safe Defaults
+- **Deny by default** for permissions and dangerous operations. Require explicit opt-in for risky behavior.
+- Default config and feature flags should be safe for production (e.g. no debug mode on by default).
+- See `03-security.mdc` for auth, validation, and audit logging.
+
+## Reproducibility & Automation
+- **Lock dependencies** (package-lock, requirements.txt, etc.). Reproducible builds are mandatory.
+- Prefer **scriptable, non-interactive** commands for CI: document exit codes and expected outputs.
+- Mandatory verification commands (test, lint, build) are defined in `02-task-completion.mdc`; run them before declaring any task done.
 
 ## Self-Correction
 When you make a mistake:
@@ -229,7 +334,7 @@ When you notice the user requesting the same thing 2+ times in a conversation:
    - Security → `03-security.mdc`
    - Testing → `11-testing.mdc`
    - API design → `13-api-design.mdc`
-   - New category → Create new numbered file
+   - New category → Create new numbered file (see Rule File Naming in this file)
 
 **Examples of detectable patterns:**
 - "Run tests before finishing" → Add to `02-task-completion.mdc`
@@ -267,3 +372,17 @@ When creating or modifying rules in `.cursor/rules/`:
    - `20-29`: Architecture patterns (monorepo, websocket, etc.)
    - `30-39`: Language-specific (Ruby, Go, Python, etc.)
    - `90-99`: Meta rules (agent router, etc.)
+
+6. **Clarity and Maintenance**
+   - Keep rules concise; avoid redundant instructions; use clear, unambiguous language.
+   - Review rules periodically. If a rule doesn't seem to apply: check syntax and path (`.cursor/rules`), restart Cursor; note that global rules can override project rules.
+
+## Automation-Friendly Workflows
+- Prefer **idempotent** operations where possible (scripts, migrations, deploys). Document when something is not idempotent.
+- Prefer **non-interactive** commands for CI and scripts; avoid prompts that block automation.
+- When adding scripts or CLI: document required env, exit codes (0 = success, non-zero = failure), and how to run in CI.
+
+## When the Rules Don't Specify
+- Prefer the option that is **safer** (no extra risk), **more explicit** (no hidden behavior), and **easier to automate** (scriptable, reproducible).
+- If two approaches are equivalent, choose the one that is easier to test and maintain.
+- When in doubt, ask or reference the relevant rule file (`02-task-completion.mdc`, `03-security.mdc`, etc.).

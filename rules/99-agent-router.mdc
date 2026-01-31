@@ -5,6 +5,8 @@ alwaysApply: true
 
 # Agent Selection Guide
 
+Use this guide to choose an agent for the problem. Project rules (`00-core.mdc`, `02-task-completion.mdc`, `03-security.mdc`, etc.) still apply.
+
 ## Engineering Agents
 | Problem | Agent |
 |---------|-------|

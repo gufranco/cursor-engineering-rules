@@ -5,8 +5,10 @@ alwaysApply: true
 
 # Task Completion
 
+Principles (verify before acting, evidence before done, backward compatibility, README) are in `00-core.mdc`. This file defines the **mandatory commands** and **delivery format**.
+
 ## Pre-Completion Checklist
-- [ ] Backward compatible
+- [ ] Backward compatible (see `00-core.mdc` → Backward Compatibility)
 - [ ] Matches existing patterns
 - [ ] Errors handled and logged
 - [ ] Input validation (user endpoints)
@@ -25,19 +27,20 @@ npm run lint        # No errors allowed
 npm run build       # Must compile successfully
 ```
 
-**Do NOT skip these steps. Claims without evidence = not done.**
+**Do NOT skip these steps. Claims without evidence = not done.** (See `00-core.mdc` → Verification Before Completion, Core Checklist.)
 
 ## Delivery Summary
 1. **Files**: List modified files
 2. **Changes**: What and why
 3. **Tests**: Coverage confirmation
-4. **Risks**: Concerns or follow-ups
+4. **Verification**: Paste the last 10–20 lines of `npm run test`, `npm run lint`, and `npm run build` (or equivalent). Do not claim "passed" without showing output. In Agent/Auto, always include this block with pasted output (see `98-agent-quality.mdc`).
+5. **Risks**: Concerns or follow-ups
 
 ```markdown
 <!-- ❌ NEVER - vague summary -->
 Done. Updated some files.
 
-<!-- ✅ CORRECT - detailed summary -->
+<!-- ✅ CORRECT - detailed summary with evidence -->
 ## Delivery Summary
 
 **Files Modified:**
@@ -52,6 +55,11 @@ Done. Updated some files.
 **Tests:**
 - 3 new tests added (valid email, invalid format, duplicate email)
 - All 47 tests passing, 85% coverage
+
+**Verification:** (paste last lines of each command)
+    $ npm run test → 47 passing (2.1s)
+    $ npm run lint → No lint errors.
+    $ npm run build → Build completed successfully.
 
 **Risks:**
 - None identified. Change is backward compatible.
