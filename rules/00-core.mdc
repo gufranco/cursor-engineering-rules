@@ -276,9 +276,16 @@ Before implementing a fix or new code, **search for an existing solution**; reus
 | **Pipeline failure** | Source branch + **all open PRs/MRs** (list + view content) + **remote branches** where relevant. Same failure? Existing fix? | Cherry-pick, rebase onto fix, or apply the same approach. See `01-git-workflow.mdc` → CI/CD. |
 | **Dependencies** | Is the dependency or a native alternative already in the project? | Use existing; add new only if needed. See `15-dependencies.mdc`. |
 | **Code / patterns** | Similar logic or fix in codebase, another branch, or a PR/MR? | Copy or adapt the pattern; don't reimplement from scratch. |
+| **Tests** | Similar test (same module, same pattern) or fixture already exists? | Reuse or extend; share factories and helpers. See `11-testing.mdc`. |
+| **API / endpoints** | Similar route or handler (same resource, same method) already exists? | Follow existing pattern; reuse middleware and validation. See `13-api-design.mdc`. |
+| **UI / components** | Same or similar component (form, list, modal) elsewhere? | Reuse or compose; avoid duplicate UI logic. |
+| **Types / utils** | Same type, constant, or util in `lib/` or `shared/`? | Import from single source; don't redefine. |
+| **External integrations** | Client or adapter for the same service (email, storage, API) already exists? | Reuse; extend only if needed. See `08-external-services.mdc`. |
 | **Bugs / config** | Same error or config in other environments, PRs/MRs, or branches? | Apply the same fix or document the shared solution. |
 
-When in doubt, a quick check (list PRs/MRs, view content, list remote branches) can avoid duplicate work.
+**How to search the codebase:** Use grep (exact symbol/string), glob (file names), or semantic search ("where is X done?"). Before adding a file, search for similar names or usages; before adding a function, search for the same behavior.
+
+When in doubt, a quick check (codebase + PRs/MRs + remote branches) can avoid duplicate work.
 
 ## Think Before You Code
 For non-trivial tasks:

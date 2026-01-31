@@ -12,7 +12,7 @@ Complements `00-core.mdc` and `02-task-completion.mdc`. When running autonomousl
 Follow this order so outputs are predictable and complete:
 
 1. **Goal** – One sentence: what must be true when done.
-2. **Read/Verify** – What you will read or run (files, types, commands). Then do it.
+2. **Read/Verify** – What you will read or run (files, types, commands). **Include: search codebase** (grep/glob/semantic) and **PRs/branches** for an existing solution before implementing. Then do it.
 3. **Plan** – 1–3 bullets: what you will do. If multi-step, name the steps and do one at a time.
 4. **Do** – Make the change(s). Prefer minimal edits (see below).
 5. **Verify** – Run the relevant command(s) and **paste the output** (last 10–20 lines is enough). Do not say "tests pass" without showing it.
@@ -22,7 +22,7 @@ Short, scannable lists beat long paragraphs. Use bullets and tables when summari
 ## Before Acting
 
 1. **State the goal** in one sentence (what must be true when done).
-2. **List what must be read or verified** (files, APIs, types, env) — then **perform each** (read, grep, run) before proposing code.
+2. **List what must be read or verified** (files, APIs, types, env), **including a search for existing solution** (codebase + PRs/branches) — then **perform each** (read, grep, run) before proposing code.
 3. **Propose the approach** in 1–3 bullets; if the task is multi-step, break it into steps and work one at a time.
 
 Do not implement until the above is done. Prefer verification over speed.

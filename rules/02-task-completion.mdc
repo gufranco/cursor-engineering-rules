@@ -8,6 +8,7 @@ alwaysApply: true
 Principles (verify before acting, evidence before done, backward compatibility, README) are in `00-core.mdc`. This file defines the **mandatory commands** and **delivery format**.
 
 ## Pre-Completion Checklist
+- [ ] Reuse checked (codebase, PRs, branches) where relevant — search before implementing (see `00-core.mdc` → Reuse First).
 - [ ] Backward compatible (see `00-core.mdc` → Backward Compatibility)
 - [ ] Matches existing patterns
 - [ ] Errors handled and logged
