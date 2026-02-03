@@ -48,6 +48,8 @@ Standards that guide AI behavior based on file patterns.
 | `01-git-workflow` | Commit conventions, branching, CI monitoring |
 | `02-task-completion` | Pre-completion checklist, verification |
 | `03-security` | OWASP, secrets, input validation |
+| `97-plan-test-scenarios` | Test scenario generation during planning; traceability, categories, acceptance criteria |
+| `98-agent-quality` | Agent/Auto response template, evidence, minimal edits |
 | `99-agent-router` | Agent selection guide with decision tree |
 
 ### TypeScript/JavaScript Rules
