@@ -27,3 +27,4 @@ Iterate on code until all tests pass.
 - One fix at a time
 - Don't modify tests to make them pass (unless test is wrong)
 - Read full error messages before fixing
+- When the task was planned with test scenarios (see `rules/97-plan-test-scenarios.mdc`), passing tests means those scenarios are the acceptance criteria — ensure they are covered and passing

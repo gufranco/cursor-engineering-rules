@@ -8,6 +8,7 @@ Systematic approach to refactoring code while maintaining functionality and test
 ### 1. Prepare
 - [ ] Identify code to refactor
 - [ ] Ensure tests exist for current behavior
+- [ ] When the refactor was planned with test scenarios (see `rules/97-plan-test-scenarios.mdc`), treat those scenarios as acceptance criteria — refactoring must not break them
 - [ ] Create backup branch: `git checkout -b refactor/<name>`
 
 ### 2. Analyze
@@ -78,6 +79,7 @@ function create(userData: UserData) {}
 - Commit after each successful change
 - Keep refactoring separate from feature work
 - Don't change behavior while refactoring
+- When a plan included test scenarios (`97-plan-test-scenarios.mdc`), those scenarios define "don't break behavior" — all must keep passing
 
 ## Verification Commands
 ```bash
