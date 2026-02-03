@@ -238,6 +238,3 @@ This repo is intended to be reused across many projects (as a submodule or copie
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details.
-
----
-
