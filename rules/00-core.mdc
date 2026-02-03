@@ -37,10 +37,11 @@ When the task touches a topic, open the rule file and follow it.
 | Accessibility | `16-accessibility.mdc` |
 | Git, commits, PRs | `01-git-workflow.mdc` |
 | Code review | `09-code-review.mdc` |
+| Planning, test scenarios (Plan mode) | `97-plan-test-scenarios.mdc` |
 | External services, caching, background jobs | `08-external-services.mdc`, `18-caching.mdc`, `24-background-jobs.mdc` |
 | Feature flags, monorepo, WebSocket, mobile | `25-feature-flags.mdc`, `20-monorepo.mdc`, `21-websocket.mdc`, `22-mobile.mdc` |
 
-**By task type** (open these together when relevant): API change → 13 + 04; New or changed dependency → 15; UI/frontend change → 14 + 16 (a11y); Auth or user input → 03; Bug fix → 04 + 11 (tests); Performance or caching → 18 + 07.
+**By task type** (open these together when relevant): API change → 13 + 04; New or changed dependency → 15; UI/frontend change → 14 + 16 (a11y); Auth or user input → 03; Bug fix → 04 + 11 (tests); Performance or caching → 18 + 07; Planning (Plan mode) → 97 (test scenarios).
 
 ## Language & Tone
 - Always respond in English

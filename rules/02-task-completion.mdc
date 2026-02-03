@@ -17,6 +17,7 @@ Principles (verify before acting, evidence before done, backward compatibility, 
 - [ ] No N+1 queries
 - [ ] No sensitive data exposed
 - [ ] Tests written and passing
+- [ ] When a plan included Test Scenarios (see `97-plan-test-scenarios.mdc`), all planned scenarios are implemented and passing
 - [ ] README updated (if API/setup/env changed)
 
 ## Mandatory Verification Commands
@@ -33,7 +34,7 @@ npm run build       # Must compile successfully
 ## Delivery Summary
 1. **Files**: List modified files
 2. **Changes**: What and why
-3. **Tests**: Coverage confirmation
+3. **Tests**: Coverage confirmation; when the task was planned with test scenarios (see `97-plan-test-scenarios.mdc`), note that planned scenarios are implemented and passing (e.g. “All 10 planned scenarios covered; 47 tests passing”).
 4. **Verification**: Paste the last 10–20 lines of `npm run test`, `npm run lint`, and `npm run build` (or equivalent). Do not claim "passed" without showing output. In Agent/Auto, always include this block with pasted output (see `98-agent-quality.mdc`).
 5. **Risks**: Concerns or follow-ups
 

@@ -157,6 +157,7 @@ Looks good! Left a few nits but nothing blocking. Approving.
 - Tests cover the changes
 - Tests cover edge cases
 - Tests are readable and maintainable
+- When the PR was planned with test scenarios (see `97-plan-test-scenarios.mdc`), those scenarios are implemented and passing
 
 ## QA bug reports
 - Structure: Description, Environment (device, OS, browser/version, resolution, role), Severity (Critical/High/Medium/Low/Trivial), Steps to Reproduce (numbered), Expected vs Actual, Visual Evidence, Console/Error Logs, Additional Notes.
