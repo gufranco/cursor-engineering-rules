@@ -25,6 +25,7 @@ Keeps the agent running until tests pass.
 - Checks `.cursor/scratchpad.md` for completion markers
 - Continues until "TESTS PASSING" or "DONE" found
 - Max 10 iterations
+- When the task was planned with test scenarios (see `rules/97-plan-test-scenarios.mdc`), passing tests implies those scenarios are covered and passing — they act as acceptance criteria
 
 ## Configuration
 

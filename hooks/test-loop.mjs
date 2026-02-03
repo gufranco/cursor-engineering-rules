@@ -51,7 +51,7 @@ async function main() {
   // Continue the loop
   console.log(
     JSON.stringify({
-      followup_message: `[Test Loop ${loop_count + 1}/${MAX_ITERATIONS}] Continue fixing tests. Run the test command, analyze failures, fix one issue at a time. Update ${SCRATCHPAD_PATH} with "TESTS PASSING" when done.`,
+      followup_message: `[Test Loop ${loop_count + 1}/${MAX_ITERATIONS}] Continue fixing tests. Run the test command, analyze failures, fix one issue at a time. When the task was planned with test scenarios (see rules/97-plan-test-scenarios.mdc), ensure those scenarios are covered and passing. Update ${SCRATCHPAD_PATH} with "TESTS PASSING" when done.`,
     })
   );
 }
