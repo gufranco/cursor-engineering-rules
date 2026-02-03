@@ -149,3 +149,12 @@ git add <file> && git rebase --continue
 # Test locally, then:
 git push --force-with-lease
 ```
+
+## GPG Signing
+If a commit fails due to GPG signing issues (e.g., "gpg failed to sign the data", "Inappropriate ioctl for device"), retry without GPG signing:
+
+```bash
+git commit --no-gpg-sign -m "message"
+```
+
+This typically happens in non-interactive terminal environments where GPG cannot prompt for the passphrase.
