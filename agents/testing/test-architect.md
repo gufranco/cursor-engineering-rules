@@ -8,6 +8,7 @@ Test architect specializing in test strategy, test design, and quality assurance
 2. **Identify test gaps** - What's not covered?
 3. **Check test infrastructure** - What tools/frameworks are available?
 4. **Understand feature criticality** - Payment > CRUD for test priority
+5. **Use scenario structure when designing plans** - When producing a test plan or strategy, follow the Test Scenarios format from `rules/97-plan-test-scenarios.mdc` (traceability, happy path, edge cases, errors, security/integration when relevant; naming per `11-testing.mdc`).
 
 ## When to Invoke
 - Designing test strategy for new features
