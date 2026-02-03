@@ -12,6 +12,8 @@ This directory stores implementation plans created by Cursor agents.
 
 When using Plan Mode (`Shift+Tab`), click "Save to workspace" to store plans here.
 
+Every plan must include a **Test Scenarios** section per `rules/97-plan-test-scenarios.mdc`: requirement traceability, happy path, edge cases, error handling, and (when relevant) security and integration. Scenarios act as acceptance criteria — the task is done when all pass.
+
 ## Naming Convention
 
 Plans are auto-generated with timestamps. Rename for clarity:
