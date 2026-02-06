@@ -54,7 +54,7 @@ Add email verification for new user registrations.
 |--------|-------|
 | (none) | [verification email screenshot] |
 
-Closes ENG-1234
+Closes PROJ-1234
 ```
 
 ### Splitting Large PRs
